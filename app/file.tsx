@@ -13,7 +13,7 @@ export default function FileFC() {
     setFileContent(content)
   }, [])
 
-  const handleDownload = () => {
+  const handleDownload = (type: string = 'text') => {
     // Create a Blob object with the file content
     const blob = new Blob([fileContent], { type: 'text/plain' })
 
@@ -23,7 +23,7 @@ export default function FileFC() {
     // Create a link element
     const link = document.createElement('a')
     link.href = url
-    link.download = 'example.cert' // Set the file name
+    link.download = `example.${type}` // Set the file name
     link.click()
 
     // Cleanup
@@ -31,9 +31,24 @@ export default function FileFC() {
   }
 
   return (
-    <div className="bg-purple-300 h-32 flex justify-center rounded-lg my-4 overflow-hidden">
-      <button onClick={handleDownload} className="w-full font-bold text-4xl">
-        Download File
+    <div className="flex justify-center my-4 overflow-hidden gap-6 flex-wrap">
+      <button
+        onClick={() => handleDownload('cert')}
+        className="w-full font-bold text-2xl h-10 bg-purple-300 rounded-lg "
+      >
+        Download cert file
+      </button>
+      <button
+        onClick={() => handleDownload('text')}
+        className="w-full font-bold text-2xl h-10 bg-purple-300 rounded-lg"
+      >
+        Download text file
+      </button>
+      <button
+        onClick={() => handleDownload('jpeg')}
+        className="w-full font-bold text-2xl h-10 bg-purple-300 rounded-lg"
+      >
+        Download jpeg file
       </button>
     </div>
   )
